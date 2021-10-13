@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { NowShowingBanner } from '../components/NowShowingBanner';
-
+import ip from '../components/Util';
 export default class NowShowing extends Component {
     state = {
         filmList: [],
-        endPoint: 'http://192.168.1.4:5000/api/movies/nowshowing',
+        endPoint: `http://${ip}:5000/api/movies/nowshowing`,
     };
 
     componentDidMount() {
@@ -29,7 +29,7 @@ export default class NowShowing extends Component {
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={styles.container}>
                         {this.state.filmList.map((film) => {
-                            return <NowShowingBanner key={film.id} film={film} />;
+                            return <NowShowingBanner key={film._id} film={film} />;
                         })}
                     </View>
                 </ScrollView>

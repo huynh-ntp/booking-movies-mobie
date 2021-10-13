@@ -3,14 +3,14 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { SafeAreaView } from 'react-native';
 
 export function FavoriteFilm(props) {
-    const { film } = props;
+    const { film, onPress } = props;
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: film.movieImg }} />
             <Text style={styles.rate}>7.9</Text>
             <Text style={styles.status}>Đang chiếu</Text>
             <Text style={styles.title}>{film.title}</Text>
-            <TouchableOpacity style={styles.button} activeOpacity="0.2">
+            <TouchableOpacity style={styles.button} activeOpacity="0.2" onPress={onPress}>
                 <Text style={{ color: '#FFF' }}>ĐẶT VÉ</Text>
             </TouchableOpacity>
         </View>

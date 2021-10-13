@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Image } from 'react-native';
 import Cinema from '../screens/Cinema';
 import News from '../screens/News';
 import Gift from '../screens/Gift';
@@ -17,7 +18,16 @@ const BottomTabNavigator = () => {
                 options={{
                     headerTitle: 'Khám Phá',
                     tabBarActiveTintColor: '#e91e63',
-                    tabBarStyle: { backgroundColor: 'white' },
+                    tabBarIcon: ({ color, size }) => (
+                        <Image
+                            source={require('../assets/discover.png')}
+                            style={{
+                                marginTop: 5,
+                                height: 25,
+                                width: 25,
+                            }}
+                        />
+                    ),
                 }}
             ></Tab.Screen>
             <Tab.Screen
@@ -25,13 +35,34 @@ const BottomTabNavigator = () => {
                 component={Cinema}
                 options={{
                     headerTitle: 'Rạp Chiếu',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image
+                            source={require('../assets/cinema.png')}
+                            style={{
+                                marginTop: 5,
+                                height: 25,
+                                width: 25,
+                            }}
+                        />
+                    ),
                 }}
             ></Tab.Screen>
             <Tab.Screen
                 name="News"
                 component={News}
                 options={{
+                    tabBarActiveTintColor: '#e91e63',
                     headerTitle: 'Tin Tức',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image
+                            source={require('../assets/news.png')}
+                            style={{
+                                marginTop: 5,
+                                height: 25,
+                                width: 25,
+                            }}
+                        />
+                    ),
                 }}
             ></Tab.Screen>
             <Tab.Screen
@@ -39,6 +70,16 @@ const BottomTabNavigator = () => {
                 component={Gift}
                 options={{
                     headerTitle: 'Quà tặng',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image
+                            source={require('../assets/gift.png')}
+                            style={{
+                                marginTop: 5,
+                                height: 25,
+                                width: 25,
+                            }}
+                        />
+                    ),
                 }}
             ></Tab.Screen>
             <Tab.Screen
@@ -46,6 +87,17 @@ const BottomTabNavigator = () => {
                 component={Profile}
                 options={{
                     headerTitle: 'Cá Nhân',
+                    tabBarActiveTintColor: '#e91e63',
+                    tabBarIcon: ({ color, size }) => (
+                        <Image
+                            source={require('../assets/user.png')}
+                            style={{
+                                marginTop: 5,
+                                height: 25,
+                                width: 25,
+                            }}
+                        />
+                    ),
                 }}
             ></Tab.Screen>
         </Tab.Navigator>

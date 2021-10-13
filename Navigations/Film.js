@@ -1,26 +1,31 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import NowShowing from '../screens/NowShowing';
-import Home from '../screens/Home';
-import CommingSoon from '../screens/CommingSoon';
 import * as React from 'react';
+import FilmDetail from '../screens/FilmDetail';
+import Shows from '../screens/Shows';
+import Review from '../screens/Review';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+
 const Tab = createMaterialTopTabNavigator();
-const TopTabDiscoverNavigator = () => {
+const Film = ({ navigation, route }) => {
+    const { film } = route.params;
     return (
-        <Tab.Navigator initialRouteName="Home">
+        <Tab.Navigator initialRouteName="Shows">
             <Tab.Screen
-                name="Home"
-                component={Home}
+                name="Shows"
+                initialParams={film}
+                component={Shows}
                 options={{
+                    tabBarLabel: 'Lịch Chiếu',
                     // tabBarShowLabel:false,
                     tabBarActiveTintColor: '#e91e63',
                     tabBarStyle: { backgroundColor: 'white' },
                 }}
             ></Tab.Screen>
             <Tab.Screen
-                name="NowShowing"
-                component={NowShowing}
+                name="Review"
+                initialParams={film}
+                component={Review}
                 options={{
-                    tabBarLabel: 'Đang Chiếu',
+                    tabBarLabel: 'Bình Luận',
                     // tabBarShowLabel:false,
                     tabBarActiveTintColor: '#e91e63',
                     tabBarStyle: { backgroundColor: 'white' },
@@ -28,17 +33,19 @@ const TopTabDiscoverNavigator = () => {
                 }}
             ></Tab.Screen>
             <Tab.Screen
-                name="CommingSoon"
-                component={CommingSoon}
+                name="FilmDetail"
+                component={FilmDetail}
+                initialParams={film}
                 options={{
-                    tabBarLabel: 'Sắp Chiếu',
+                    tabBarLabel: 'Thông tin',
                     // tabBarShowLabel:false,
                     tabBarActiveTintColor: '#e91e63',
                     tabBarStyle: { backgroundColor: 'white' },
+                    tabBarStyle: { borderBottomWidth: 0, elevation: 0, shadowOpacity: 0 },
                 }}
             ></Tab.Screen>
         </Tab.Navigator>
     );
 };
 
-export default TopTabDiscoverNavigator;
+export default Film;

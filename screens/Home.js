@@ -4,11 +4,12 @@ import { SafeAreaView } from 'react-native';
 import { FavoriteFilm } from '../components/FavoriteFilm';
 import { Banner } from '../components/Banner';
 import { Hot } from '../components/Hot';
+import ip from '../components/Util';
 import axios from 'axios';
 export default class Home extends Component {
     state = {
         filmList: [],
-        endPoint: 'http://192.168.1.4:5000/api/movies/nowshowing',
+        endPoint: `http://${ip}:5000/api/movies/nowshowing`,
     };
 
     componentDidMount() {
@@ -16,7 +17,6 @@ export default class Home extends Component {
             .get(this.state.endPoint)
             .then((response) => {
                 let film = response.data;
-                console.log(response.data);
                 this.setState({
                     filmList: film,
                 });
@@ -26,8 +26,13 @@ export default class Home extends Component {
             });
     }
 
+    clickToBooking(film) {
+        this.props.navigation.navigate('Film', {
+            film: { film },
+        });
+    }
+
     render() {
-        console.log(this.setState.filmList);
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -36,7 +41,7 @@ export default class Home extends Component {
                     <View style={{ alignItems: 'center' }}>
                         {this.state.filmList.map((film, index) => {
                             if (index >= 0 && index <= 2) {
-                                return <FavoriteFilm key={film.id} film={film} />;
+                                return <FavoriteFilm key={film._id} film={film} onPress={() => this.clickToBooking(film)} />;
                             }
                         })}
                     </View>
@@ -50,7 +55,7 @@ export default class Home extends Component {
                             </View>
                             {this.state.filmList.map((film, index) => {
                                 if (index >= 3 && index <= 5) {
-                                    return <Hot key={film.id} film={film} />;
+                                    return <Hot key={film._id} film={film} onPress={() => this.clickToBooking(film)} />;
                                 }
                             })}
                         </View>

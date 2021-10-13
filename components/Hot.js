@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 
 export function Hot(props) {
-    const film = props.film;
+    const { film, onPress } = props;
     return (
         <View style={styles.container}>
             <View style={{ width: '35%', height: '100%' }}>
@@ -12,7 +12,7 @@ export function Hot(props) {
                 <Text style={styles.title}>{film.title}</Text>
                 <Text style={styles.minute}>{film.movieDuration}p</Text>
                 <Text style={styles.rate}>7.9</Text>
-                <TouchableOpacity style={styles.button} activeOpacity="0.2">
+                <TouchableOpacity style={styles.button} activeOpacity="0.2" onPress={onPress}>
                     <Text style={{ color: '#FFF' }}>ĐẶT VÉ</Text>
                 </TouchableOpacity>
             </View>
