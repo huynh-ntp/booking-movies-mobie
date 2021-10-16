@@ -3,7 +3,6 @@ import { SafeAreaView, Text, View, StyleSheet, Image, ScrollView } from 'react-n
 
 export default function FilmDetail({ navigation, route }) {
     const { film } = route.params;
-    console.log(film);
 
     return (
         <SafeAreaView style={styles.container}>

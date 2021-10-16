@@ -14,7 +14,6 @@ function Review({ navigation, route }) {
     }, []);
 
     const loadData = () => {
-        console.log(endPont);
         axios
             .get(endPont)
             .then((response) => {
@@ -32,15 +31,15 @@ function Review({ navigation, route }) {
                     {reviewList.map((rv) => {
                         avg += rv.star;
                     })}
-                    <Text style={styles.totalScore}>{avg / reviewList.length}</Text>
+                    <Text style={styles.totalScore}>
+                        {Number.parseFloat(avg / reviewList.length).toFixed(1)}
+                        <Image style={{ width: 20, height: 20 }} source={require('../assets/star.png')}></Image>
+                    </Text>
                     <Text style={styles.totalPepleReview}>{reviewList.length} người đánh giá</Text>
                 </View>
                 <View style={styles.rating}>
-                    <View style={{ width: '70%', height: 50 }}>
-                        <TextInput style={styles.input}></TextInput>
-                    </View>
-                    <TouchableOpacity style={{ width: '30%', height: 50 }}>
-                        <Text style={styles.button}>Post</Text>
+                    <TouchableOpacity>
+                        <Text style={styles.btnReview}>Viết Đánh Giá</Text>
                     </TouchableOpacity>
                 </View>
                 {reviewList.map((rv) => {
@@ -52,10 +51,13 @@ function Review({ navigation, route }) {
                                 <View style={{ width: '10%', height: 20, marginTop: 5, marginLeft: 10 }}>
                                     <Image style={{ width: 40, height: 40 }} source={require('../assets/user.png')} />
                                 </View>
-                                <View style={{ width: '70%', height: 20, marginLeft: 10 }}>
+                                <View style={{ width: '65%', height: 20, marginLeft: 10 }}>
                                     <Text style={{ fontSize: 18 }}>{rv.account[0].fullName}</Text>
                                 </View>
-                                <Text style={{ width: '10%', color: 'green', fontSize: 22 }}>{rv.star}</Text>
+                                <Text style={{ width: '20%', color: 'green', fontSize: 22 }}>
+                                    {Number.parseFloat(rv.star).toFixed(1)}
+                                    <Image style={{ width: 20, height: 20 }} source={require('../assets/star.png')}></Image>
+                                </Text>
                             </View>
                             <View style={{ width: '100%' }}>
                                 <Text style={{ marginLeft: 60, color: 'gray', fontSize: 12 }}>{dateStr}</Text>
@@ -95,27 +97,24 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: '#FFF',
         height: 50,
-        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-    input: {
-        width: '100%',
-        marginLeft: 15,
-        height: 40,
-        marginTop: 5,
-        backgroundColor: '#92DDD0',
-        borderRadius: 20,
+    btnReview: {
+        color: '#FFF',
+        backgroundColor: 'gray',
+        paddingVertical: 10,
         paddingHorizontal: 20,
-    },
-    button: {
-        width: '62%',
-        marginLeft: 30,
-        marginTop: 5,
-        backgroundColor: '#92DDD0',
-        height: 40,
-        paddingVertical: 5,
-        paddingHorizontal: 15,
-        fontSize: 20,
         borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 9,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 12.35,
+
+        elevation: 19,
     },
     comment: {
         width: '100%',

@@ -1,12 +1,35 @@
 import React from 'react';
 import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-
+import axios from 'axios';
+import ip from './Util';
+import { useState, useEffect } from 'react';
 export function NowShowingBanner(props) {
     const { film } = props;
+
+    const [star, setstar] = useState(0);
+    const [endPont, setEndpoint] = useState(`http://${ip}:5000/api/ratings/${film._id}`);
+    useEffect(() => {
+        axios
+            .get(endPont)
+            .then((response) => {
+                let rvList = response.data;
+                let sumStar = 0;
+                rvList.map((rv) => {
+                    sumStar += rv.star;
+                });
+                if (rvList.length !== 0) {
+                    setstar(sumStar / rvList.length);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
         <TouchableOpacity style={styles.container} activeOpacity="0.2">
             <Image source={{ uri: film.bannerImg }} style={styles.image}></Image>
-            <Text style={styles.rate}>7.9</Text>
+            <Text style={styles.rate}>{Number.parseFloat(star).toFixed(1)}</Text>
         </TouchableOpacity>
     );
 }
