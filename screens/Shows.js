@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ip from '../components/Util';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import { useIsFocused } from '@react-navigation/core';
 export default function Shows({ navigation, route }) {
     const { film } = route.params;
     const cinemaEndpoint = `http://${ip}:5000/api/cinemas/getAllCinemas`;
@@ -14,6 +15,11 @@ export default function Shows({ navigation, route }) {
     const [timeChoose, setTimeChoose] = useState(new Date());
     const [isCinemaPickerVisible, setCinemaPickerVisible] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const isForcused = useIsFocused();
+
+    useEffect(() => {
+        getShowtimes(cinemaChoose);
+    }, [isForcused]);
 
     useEffect(() => {
         axios
@@ -24,9 +30,6 @@ export default function Shows({ navigation, route }) {
             .catch((err) => {
                 console.log(err);
             });
-        navigation.addListener('focus', () => {
-            getShowtimes(cinemaChoose);
-        });
     }, []);
     useEffect(() => {
         if (cinemaChoose !== '') {

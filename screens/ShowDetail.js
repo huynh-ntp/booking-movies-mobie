@@ -9,8 +9,6 @@ export function ShowDetail({ navigation, route }) {
     const seatList = show.s.seats;
     const [seats, setseats] = useState(seatList);
     const [seatChoose, setseatsChoose] = useState([]);
-    console.log(show.s.seats);
-    console.log(seatChoose);
     useEffect(() => {
         setseats(show.s.seats);
     }, []);

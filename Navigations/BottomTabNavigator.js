@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import Cinema from '../screens/Cinema';
 import News from '../screens/News';
 import Gift from '../screens/Gift';
-import Profile from '../screens/Profile';
+import { Profile } from '../screens/Profile';
 import TopTabDiscoverNavigator from './TopTabHomeNavigator';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
