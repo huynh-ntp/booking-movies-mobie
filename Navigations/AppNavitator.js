@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BottomTabNavigator from './BottomTabNavigator';
 import { Login } from '../screens/Login';
 import { ShowDetail } from '../screens/ShowDetail';
+import { Payment } from '../screens/Payment';
 import Film from './Film';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -12,6 +13,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Film" component={Film}></Stack.Screen>
             <Stack.Screen name="Login" options={{ headerShown: false }} component={Login}></Stack.Screen>
             <Stack.Screen name="ShowDetail" component={ShowDetail}></Stack.Screen>
+            <Stack.Screen name="Payment" options={{ headerTitle: 'Xác nhận đơn hàng' }} component={Payment}></Stack.Screen>
         </Stack.Navigator>
     );
 };

@@ -55,7 +55,6 @@ export default function Shows({ navigation, route }) {
     };
     const getShowtimes = async (cine) => {
         let dateStr = timeChoose.getFullYear() + '-' + `${timeChoose.getMonth() + 1}` + '-' + timeChoose.getDate();
-
         axios
             .post(showsEndpoint, {
                 id: cine._id,
@@ -75,7 +74,9 @@ export default function Shows({ navigation, route }) {
     };
     const goToShowDetail = (s) => {
         navigation.navigate('ShowDetail', {
-            show: { s },
+            show: s,
+            film: film,
+            cinemaChoose: cinemaChoose,
         });
     };
     return (

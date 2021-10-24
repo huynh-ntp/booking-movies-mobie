@@ -1,16 +1,18 @@
 import React from 'react';
-import { SafeAreaView, Text, View, ScrollView, Image, TouchableOpacity, StyleSheet, Modal, FlatList } from 'react-native';
+import { SafeAreaView, Text, View, Alert, Image, TouchableOpacity, StyleSheet, Modal, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ip from '../components/Util';
 
 export function ShowDetail({ navigation, route }) {
+    const { film } = route.params;
     const { show } = route.params;
-    const seatList = show.s.seats;
+    const { cinemaChoose } = route.params;
+    const seatList = show.seats;
     const [seats, setseats] = useState(seatList);
     const [seatChoose, setseatsChoose] = useState([]);
     useEffect(() => {
-        setseats(show.s.seats);
+        setseats(show.seats);
     }, []);
 
     const select = (index) => {
@@ -57,6 +59,19 @@ export function ShowDetail({ navigation, route }) {
             </View>
         );
     };
+    const gotoPayment = () => {
+        if (seatChoose.length === 0) {
+            Alert.alert('Vui lòng chọn ghế trước khi đặt vé!');
+        } else {
+            //   console.log(film);
+            navigation.navigate('Payment', {
+                seatChoose: seatChoose,
+                film: film,
+                cinemaChoose: cinemaChoose,
+                show: show,
+            });
+        }
+    };
     return (
         <View style={styles.container}>
             <Text style={styles.screenHere}>Màn hình ở đây</Text>
@@ -75,7 +90,7 @@ export function ShowDetail({ navigation, route }) {
                     <View style={{ backgroundColor: '#FFF', width: 80, height: 30 }}></View>
                 </View>
             </View>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity onPress={() => gotoPayment()} style={styles.button}>
                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>Đặt vé</Text>
             </TouchableOpacity>
         </View>

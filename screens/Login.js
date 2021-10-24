@@ -1,5 +1,5 @@
 import React from 'react';
-import { Picker, View, Text, Image, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
+import { Picker, View, Text, Image, Alert, ImageBackground, StyleSheet, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,6 +16,7 @@ export function Login({ navigation }) {
     const [phone, setphone] = useState('');
     const [age, setage] = useState('');
     const [errRegister, seterrRegister] = useState('');
+    const [year, setyear] = useState('2000');
     const login = () => {
         if (username === '' || password === '') {
             seterrorLogin('Hãy nhập đầy đủ tài khoản và mật khẩu!');
@@ -36,11 +37,32 @@ export function Login({ navigation }) {
     };
 
     const register = () => {
-        if (username.trim() === '' || name.trim() === '' || password.trim() === '' || pwConfirm.trim() === '' || phone.trim() === '' || age === '') {
+        if (username.trim() === '' || name.trim() === '' || password.trim() === '' || pwConfirm.trim() === '' || phone.trim() === '' || year === '') {
             seterrRegister('Điền đầy đủ thông tin trước khi đăng ký!');
         } else {
             if (password != pwConfirm) {
                 seterrRegister('Mật khẩu xác thực không trùng với mật khẩu!');
+            } else {
+                let date = new Date();
+                setage(date.getFullYear() - year);
+                axios
+                    .post(`${endPoint}`, {
+                        userName: username,
+                        password: password,
+                        fullName: name,
+                        age: age,
+                        phone: phone,
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                        Alert.alert('Đăng ký thành công!');
+                        setTimeout(() => {
+                            setLogin(true);
+                        }, 2000);
+                    })
+                    .catch((err) => {
+                        seterrRegister(err.response.data.message);
+                    });
             }
         }
     };
@@ -53,7 +75,7 @@ export function Login({ navigation }) {
         }
     };
     const yob = [];
-    for (let i = 1900; i <= 2021; i++) {
+    for (let i = 1950; i <= 2021; i++) {
         yob.push(i);
     }
     if (isLogin) {
@@ -76,9 +98,9 @@ export function Login({ navigation }) {
                     </View>
                     <View style={{ marginTop: -10 }}>
                         <Text style={{ alignItems: 'flex-end', marginLeft: '10%' }}>Username:</Text>
-                        <TextInput value={username} onChangeText={(value) => setusername(value)} mode="outlined" label="Username" style={{ width: '80%', marginLeft: '10%', backgroundColor: '#FFF', height: 50 }}></TextInput>
+                        <TextInput value={username} onChangeText={(value) => setusername(value.trim())} mode="outlined" label="Username" style={{ width: '80%', marginLeft: '10%', backgroundColor: '#FFF', height: 50 }}></TextInput>
                         <Text style={{ alignItems: 'flex-end', marginLeft: '10%' }}>Password:</Text>
-                        <TextInput value={password} onChangeText={(value) => setpassword(value)} mode="outlined" label="Password" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 50 }}></TextInput>
+                        <TextInput value={password} onChangeText={(value) => setpassword(value.trim())} mode="outlined" label="Password" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 50 }}></TextInput>
                         <Text style={{ color: 'red', marginLeft: '10%' }}>{errorLogin}</Text>
                     </View>
                     <Button onPress={() => login()} style={{ marginBottom: 140, marginTop: 10, width: 130, marginLeft: '55%' }} mode="contained">
@@ -107,19 +129,19 @@ export function Login({ navigation }) {
                     </View>
                     <View style={{ marginTop: -30 }}>
                         <Text style={{ marginLeft: '10%' }}>Name:</Text>
-                        <TextInput value={name} onChangeText={(value) => setname(value)} mode="outlined" label="Name" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
+                        <TextInput value={name} onChangeText={(value) => setname(value.trim())} mode="outlined" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
                         <Text style={{ marginLeft: '10%' }}>Username:</Text>
-                        <TextInput value={username} onChangeText={(value) => setusername(value)} mode="outlined" label="Username" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
+                        <TextInput value={username} onChangeText={(value) => setusername(value.trim())} mode="outlined" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
                         <Text style={{ marginLeft: '10%' }}>Password:</Text>
-                        <TextInput value={password} onChangeText={(value) => setpassword(value)} mode="outlined" label="Password" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
+                        <TextInput value={password} onChangeText={(value) => setpassword(value.trim())} mode="outlined" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
                         <Text style={{ marginLeft: '10%' }}>Confirm pass:</Text>
-                        <TextInput value={pwConfirm} onChangeText={(value) => setpwConfirm(value)} mode="outlined" label="Confirm password" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
+                        <TextInput value={pwConfirm} onChangeText={(value) => setpwConfirm(value.trim())} mode="outlined" secureTextEntry={true} style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
                         <Text style={{ marginLeft: '10%' }}>Phone:</Text>
-                        <TextInput value={phone} mode="outlined" label="Phone" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
+                        <TextInput value={phone} onChangeText={(value) => setphone(value.trim())} mode="outlined" style={{ marginLeft: '10%', width: '80%', backgroundColor: '#FFF', height: 40 }}></TextInput>
                         <Text style={{ marginLeft: '10%' }}>Yob:</Text>
-                        <Picker style={{ width: '40%', marginLeft: '10%' }}>
+                        <Picker selectedValue={year} onValueChange={(value) => setyear(value)} style={{ width: '40%', marginLeft: '10%' }}>
                             {yob.map((y) => (
-                                <Picker.Item key={y} label={`${y}`} value={y}></Picker.Item>
+                                <Picker.Item key={y} label={`${y}`} value={`${y}`}></Picker.Item>
                             ))}
                         </Picker>
                         <Text style={{ color: 'red', marginLeft: '10%' }}>{errRegister}</Text>
@@ -142,10 +164,13 @@ const styles = StyleSheet.create({
         height: Dimensions.get('window').height / 2.5,
     },
     bottomView: {
-        flex: 1.5,
+        flex: 1.7,
         backgroundColor: '#FFF',
         bottom: 50,
         borderTopStartRadius: 60,
         borderTopEndRadius: 60,
+    },
+    marginLeft: {
+        marginLeft: '10%',
     },
 });
