@@ -23,6 +23,26 @@ export function Payment({ navigation, route }) {
             });
     }, []);
 
+    const payment = () => {
+        let billEndpoint = `http:${ip}:5000/api/bills`;
+        axios
+            .post(billEndpoint, {
+                cinemaName: cinemaChoose.cinemaName,
+                movieTitle: film.title,
+                seat: seatChoose,
+                room: room.nameRoom,
+                showTimeId: show._id,
+                price: show.price,
+                showTime: show.startDate,
+            })
+            .then((res) => {
+                navigation.navigate('PaymentSuccess');
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            });
+    };
+
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.container}>
@@ -67,7 +87,7 @@ export function Payment({ navigation, route }) {
                     </View>
                 ))}
             </View>
-            <TouchableOpacity style={{ alignItems: 'flex-end', marginRight: 30, marginTop: 30 }}>
+            <TouchableOpacity onPress={() => payment()} style={{ alignItems: 'flex-end', marginRight: 30, marginTop: 30 }}>
                 <Text style={{ paddingHorizontal: 20, paddingVertical: 10, backgroundColor: 'tomato', borderRadius: 30, color: '#FFF' }}>Thanh toán</Text>
             </TouchableOpacity>
         </ScrollView>

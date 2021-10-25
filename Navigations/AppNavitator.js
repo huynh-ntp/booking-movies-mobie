@@ -4,6 +4,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import { Login } from '../screens/Login';
 import { ShowDetail } from '../screens/ShowDetail';
 import { Payment } from '../screens/Payment';
+import { PaymentSuccess } from '../screens/PaymentSuccess';
 import Film from './Film';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -14,6 +15,7 @@ const AppNavigator = () => {
             <Stack.Screen name="Login" options={{ headerShown: false }} component={Login}></Stack.Screen>
             <Stack.Screen name="ShowDetail" component={ShowDetail}></Stack.Screen>
             <Stack.Screen name="Payment" options={{ headerTitle: 'Xác nhận đơn hàng' }} component={Payment}></Stack.Screen>
+            <Stack.Screen name="PaymentSuccess" options={{ headerShown: false }} component={PaymentSuccess}></Stack.Screen>
         </Stack.Navigator>
     );
 };
