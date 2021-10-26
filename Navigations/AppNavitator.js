@@ -5,6 +5,9 @@ import { Login } from '../screens/Login';
 import { ShowDetail } from '../screens/ShowDetail';
 import { Payment } from '../screens/Payment';
 import { PaymentSuccess } from '../screens/PaymentSuccess';
+import { UserInfo } from '../screens/UserInfo';
+import { PasswordChange } from '../screens/PasswordChange';
+import { HistoryBill } from '../screens/HistoryBill';
 import Film from './Film';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -16,6 +19,9 @@ const AppNavigator = () => {
             <Stack.Screen name="ShowDetail" component={ShowDetail}></Stack.Screen>
             <Stack.Screen name="Payment" options={{ headerTitle: 'Xác nhận đơn hàng' }} component={Payment}></Stack.Screen>
             <Stack.Screen name="PaymentSuccess" options={{ headerShown: false }} component={PaymentSuccess}></Stack.Screen>
+            <Stack.Screen name="UserInfo" options={{ headerTitle: 'Thông tin cá nhân' }} component={UserInfo}></Stack.Screen>
+            <Stack.Screen name="PasswordChange" options={{ headerTitle: 'Đổi mật khẩu' }} component={PasswordChange}></Stack.Screen>
+            <Stack.Screen name="HistoryBill" options={{ headerTitle: 'Lịch sử đặt vé' }} component={HistoryBill}></Stack.Screen>
         </Stack.Navigator>
     );
 };
