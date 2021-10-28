@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import NowShowing from '../screens/NowShowing';
-import Home from '../screens/Home';
+import { Home } from '../screens/Home';
 import CommingSoon from '../screens/CommingSoon';
 import * as React from 'react';
 const Tab = createMaterialTopTabNavigator();

@@ -3,10 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ip from './Util';
+import { useIsFocused } from '@react-navigation/core';
 export function Hot(props) {
     const { film, onPress } = props;
     const [star, setstar] = useState(0);
     const [endPont, setEndpoint] = useState(`http://${ip}:5000/api/ratings/${film._id}`);
+    const isFocused = useIsFocused();
     useEffect(() => {
         axios
             .get(endPont)
@@ -23,7 +25,7 @@ export function Hot(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [isFocused]);
 
     return (
         <View style={styles.container}>

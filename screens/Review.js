@@ -4,7 +4,8 @@ import { SafeAreaView, Text, View, ScrollView, StyleSheet, TextInput, TouchableO
 import axios from 'axios';
 import ip from '../components/Util';
 import { Picker } from '@react-native-picker/picker';
-function Review({ navigation, route }) {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+export function Review({ navigation, route }) {
     const { film } = route.params;
     const [reviewList, setReviewList] = useState([]);
     const [endPoint, setEndpoint] = useState(`http://${ip}:5000/api/ratings`);
@@ -12,10 +13,16 @@ function Review({ navigation, route }) {
     const [score, setscore] = useState(10);
     const [review, setreview] = useState('');
     const [account, setaccount] = useState('');
+    const [isLogin, setisLogin] = useState('');
+
     useEffect(() => {
+        checkLogin();
         loadData();
     }, []);
-
+    const checkLogin = async () => {
+        var login = await AsyncStorage.getItem('isLogin');
+        setisLogin(login);
+    };
     const loadData = () => {
         axios
             .get(`${endPoint}/${film._id}`)
@@ -84,7 +91,16 @@ function Review({ navigation, route }) {
                     <Text style={styles.totalPepleReview}>{reviewList.length} người đánh giá</Text>
                 </View>
                 <View style={styles.rating}>
-                    <TouchableOpacity onPress={() => setisVisible(true)}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            console.log(isLogin);
+                            if (isLogin === 'true') {
+                                setisVisible(true);
+                            } else {
+                                Alert.alert('Bạn cần đăng nhập trước để đánh giá');
+                            }
+                        }}
+                    >
                         <Text style={styles.btnReview}>Viết Đánh Giá</Text>
                     </TouchableOpacity>
                 </View>
@@ -252,5 +268,3 @@ const styles = StyleSheet.create({
         borderColor: '#666',
     },
 });
-
-export default Review;

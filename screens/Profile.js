@@ -42,10 +42,6 @@ export function Profile({ navigation }) {
         }
     };
 
-    const goToLoginScreen = () => {
-        navigation.navigate('Login');
-    };
-
     const logout = async () => {
         axios
             .get(`${endPoint}/logout`)
@@ -60,15 +56,28 @@ export function Profile({ navigation }) {
 
     if (!isLogin) {
         return (
-            <SafeAreaView>
-                <Text>Profile</Text>
-                <Button
-                    onPress={() => {
-                        goToLoginScreen();
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View
+                    style={{
+                        padding: 70,
+                        backgroundColor: '#FFF',
+                        alignItems: 'center',
+                        shadowColor: '#000',
+                        shadowOffset: {
+                            width: 0,
+                            height: 11,
+                        },
+                        shadowOpacity: 0.55,
+                        shadowRadius: 14.78,
+                        elevation: 22,
+                        borderRadius: 20,
                     }}
-                    title="Login"
-                ></Button>
-            </SafeAreaView>
+                >
+                    <Image style={{ width: 120, height: 120, marginBottom: 20 }} source={require('../assets/login.png')}></Image>
+                    <Text style={{ fontSize: 22, marginBottom: 20 }}>Bạn chưa đăng nhập</Text>
+                    <Button onPress={() => navigation.navigate('Login')} title="Đăng nhập ngay"></Button>
+                </View>
+            </View>
         );
     } else {
         return (

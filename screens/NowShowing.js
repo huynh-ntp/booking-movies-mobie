@@ -42,6 +42,11 @@ export default class NowShowing extends Component {
             filmListShow: result,
         });
     }
+    clickToBooking = (film) => {
+        this.props.navigation.navigate('Film', {
+            film: { film },
+        });
+    };
 
     render() {
         return (
@@ -51,9 +56,9 @@ export default class NowShowing extends Component {
                         <View style={styles.search}>
                             <TextInput onChangeText={(value) => this.handleSearch(value)} value={this.state.search} placeholder="Search" style={styles.input}></TextInput>
                         </View>
-                        {this.state.filmListShow.map((film) => {
-                            return <NowShowingBanner key={film._id} film={film} />;
-                        })}
+                        {this.state.filmListShow.map((film) => (
+                            <NowShowingBanner key={film._id} film={film} onPress={() => this.clickToBooking(film)} />
+                        ))}
                     </View>
                 </ScrollView>
             </SafeAreaView>

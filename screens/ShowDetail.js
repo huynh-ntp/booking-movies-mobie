@@ -3,7 +3,7 @@ import { SafeAreaView, Text, View, Alert, Image, TouchableOpacity, StyleSheet, M
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ip from '../components/Util';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export function ShowDetail({ navigation, route }) {
     const { film } = route.params;
     const { show } = route.params;
@@ -11,10 +11,14 @@ export function ShowDetail({ navigation, route }) {
     const seatList = show.seats;
     const [seats, setseats] = useState(seatList);
     const [seatChoose, setseatsChoose] = useState([]);
+    const [isLogin, setisLogin] = useState('');
     useEffect(() => {
         setseats(show.seats);
     }, []);
-
+    const checkLogin = async () => {
+        var login = await AsyncStorage.getItem('isLogin');
+        setisLogin(login);
+    };
     const select = (index) => {
         setseatsChoose((prevState) => {
             prevState.push(index);
@@ -60,6 +64,12 @@ export function ShowDetail({ navigation, route }) {
         );
     };
     const gotoPayment = () => {
+        console.log(isLogin);
+        if (isLogin === 'false') {
+            Alert.alert('Bạn cần đăng nhập để đặt phim');
+            return;
+        }
+
         if (seatChoose.length === 0) {
             Alert.alert('Vui lòng chọn ghế trước khi đặt vé!');
         } else {

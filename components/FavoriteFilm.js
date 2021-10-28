@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ip from './Util';
+import { useIsFocused } from '@react-navigation/core';
 
 export function FavoriteFilm(props) {
     const { film, onPress } = props;
     const [star, setstar] = useState(0);
     const [endPont, setEndpoint] = useState(`http://${ip}:5000/api/ratings/${film._id}`);
+    const isForcused = useIsFocused();
     useEffect(() => {
         axios
             .get(endPont)
@@ -23,7 +25,7 @@ export function FavoriteFilm(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [isForcused]);
     return (
         <View style={styles.container}>
             <Image style={styles.image} source={{ uri: film.movieImg }} />

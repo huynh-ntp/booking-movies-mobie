@@ -3,11 +3,12 @@ import { Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import ip from './Util';
 import { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/core';
 export function NowShowingBanner(props) {
-    const { film } = props;
-
+    const { film, onPress } = props;
     const [star, setstar] = useState(0);
     const [endPont, setEndpoint] = useState(`http://${ip}:5000/api/ratings/${film._id}`);
+    const isFocused = useIsFocused();
     useEffect(() => {
         axios
             .get(endPont)
@@ -24,10 +25,10 @@ export function NowShowingBanner(props) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [isFocused]);
 
     return (
-        <TouchableOpacity style={styles.container} activeOpacity="0.2">
+        <TouchableOpacity style={styles.container} activeOpacity="0.2" onPress={onPress}>
             <Image source={{ uri: film.bannerImg }} style={styles.image}></Image>
             <Text style={styles.rate}>{Number.parseFloat(star).toFixed(1)}</Text>
         </TouchableOpacity>

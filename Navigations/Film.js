@@ -1,7 +1,7 @@
 import * as React from 'react';
 import FilmDetail from '../screens/FilmDetail';
 import Shows from '../screens/Shows';
-import Review from '../screens/Review';
+import { Review } from '../screens/Review';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
