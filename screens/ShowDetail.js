@@ -14,6 +14,7 @@ export function ShowDetail({ navigation, route }) {
     const [isLogin, setisLogin] = useState('');
     useEffect(() => {
         setseats(show.seats);
+        checkLogin();
     }, []);
     const checkLogin = async () => {
         var login = await AsyncStorage.getItem('isLogin');
