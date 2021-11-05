@@ -16,7 +16,6 @@ export default function Shows({ navigation, route }) {
     const [isCinemaPickerVisible, setCinemaPickerVisible] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const isForcused = useIsFocused();
-
     useEffect(() => {
         getShowtimes(cinemaChoose);
     }, [isForcused]);

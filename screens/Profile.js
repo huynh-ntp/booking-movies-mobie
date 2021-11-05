@@ -26,7 +26,6 @@ export function Profile({ navigation }) {
 
     const checkLogin = async () => {
         var login = await AsyncStorage.getItem('isLogin');
-        console.log(login);
         if ((login !== null) & (login === 'true')) {
             setisLogin(true);
             axios
@@ -38,6 +37,7 @@ export function Profile({ navigation }) {
                     console.log(err);
                 });
         } else {
+            AsyncStorage.setItem('isLogin', 'false');
             setisLogin(false);
         }
     };

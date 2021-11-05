@@ -42,6 +42,10 @@ export function Review({ navigation, route }) {
             });
     };
     const rating = () => {
+        if (account.status === false) {
+            Alert.alert('Tài khoản đã bị block nên không thể đánh giá! Liên hệ 1900545436');
+            return;
+        }
         axios
             .post(endPoint, {
                 movieId: film._id,

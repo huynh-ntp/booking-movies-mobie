@@ -72,11 +72,16 @@ export function UserInfo({ navigation, route }) {
 
     return (
         <View style={styles.container}>
-            <Image style={{ width: 100, height: 100, marginTop: -100, marginBottom: 20 }} source={require('../assets/avt.png')}></Image>
+            <Image style={{ width: 100, height: 100, marginTop: -70, marginBottom: 20, borderRadius: 60 }} source={require('../assets/avt.png')}></Image>
             <View style={styles.boxInfo}>
                 <View style={styles.input}>
                     <Text style={{ width: '15%' }}>Id:</Text>
                     <Text style={{ width: '85%' }}>{account._id}</Text>
+                </View>
+                <Text style={{ color: 'red' }}></Text>
+                <View style={styles.input}>
+                    <Text style={{ width: '25%' }}>Tình trạng:</Text>
+                    <Text style={{ width: '75%' }}>{account.status === true ? 'Bình thường' : 'Khóa'}</Text>
                 </View>
                 <Text style={{ color: 'red' }}></Text>
                 <View style={styles.input}>

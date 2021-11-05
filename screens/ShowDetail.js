@@ -12,6 +12,7 @@ export function ShowDetail({ navigation, route }) {
     const [seats, setseats] = useState(seatList);
     const [seatChoose, setseatsChoose] = useState([]);
     const [isLogin, setisLogin] = useState('');
+    const endPoint = `http://${ip}:5000/api/users`;
     useEffect(() => {
         setseats(show.seats);
         checkLogin();
@@ -65,12 +66,22 @@ export function ShowDetail({ navigation, route }) {
         );
     };
     const gotoPayment = () => {
-        console.log(isLogin);
         if (isLogin === 'false') {
             Alert.alert('Bạn cần đăng nhập để đặt phim');
             return;
+        } else {
+            axios
+                .get(`${endPoint}/me`)
+                .then((res) => {
+                    if (res.data.status === false) {
+                        Alert.alert('Tài khoản của bạn đã bị khóa! Liên hệ 1900545436!');
+                        return;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err.response.data);
+                });
         }
-
         if (seatChoose.length === 0) {
             Alert.alert('Vui lòng chọn ghế trước khi đặt vé!');
         } else {
